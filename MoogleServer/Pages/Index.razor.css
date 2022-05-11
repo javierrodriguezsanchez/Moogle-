@@ -1,0 +1,112 @@
+.item{
+    margin: 10px;
+}
+
+.results {
+    text-align: left;
+}
+
+div .item:hover{
+    background-color: rgb(217, 238, 241);
+    box-shadow:10px 10px 10px grey;
+}
+
+input{
+    width: 30%;
+}
+
+.item .title {
+    font-size: large;
+    font-weight: bold;
+}
+
+body{
+    margin: 0%;
+}
+
+
+
+.HEADER{
+    width: 96%;
+    height: 150px;
+    padding: 0% 2%;
+    background-color: rgb(115, 162, 250);
+
+}
+
+
+.HEADER > div{
+    width: 960px;
+    margin: 0px auto;
+    padding-top: 15px;
+}
+
+
+
+.HEADER h1{
+    font-weight: bold;
+    color: white;
+    font-size: 54px;
+}
+
+main{
+    min-height: 500px;
+    width: 96%;
+    padding: 2%;
+    background-color:rgb(146, 184, 255);
+    display: flex;
+    color:rgb(80, 135, 240)
+}
+
+section{
+    width: 96%;
+    padding: 2%;
+    background-color: rgb(209, 244, 250);
+    flex: 3;
+    margin-right: 5px;
+}
+
+aside{
+    background-color: rgb(209, 244, 250);
+    flex: 1;
+    padding-bottom: 10px;
+}
+
+section h1{
+    font-size: 50px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+section p,li{
+    font-size: 20px;
+}
+
+footer{
+    width: 96%;
+    padding: 2%;
+    background-color: rgb(115, 162, 250);
+}
+
+footer > div{
+    display: flex;
+    -ms-flex-align: stretch;
+    padding: 2%;
+    column-count: 3;
+    column-fill: balance;
+    background-color: rgb(146, 184, 255);
+    
+}
+
+footer>div>div{
+    flex-grow: 1;
+    display: inline;
+    margin-right: 50px;
+    display: block;
+    text-align: center;
+}
+
+footer a{
+    text-decoration: none;
+    font-size:25px;
+}

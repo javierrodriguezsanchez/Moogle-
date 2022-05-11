@@ -1,0 +1,117 @@
+﻿@page "/"
+
+<PageTitle>Moogle!</PageTitle>
+
+<header class="HEADER">
+    <div>
+    <h1>🔍 Moogle!</h1>
+    </div>
+</header>
+
+<main>
+    <section>
+        <input class="p-1 my-4" @bind="query" placeholder="Introduzca su búsqueda">
+        
+        <button type="default" class="btn btn-primary" @onclick="RunQuery">🔍 Buscar</button>
+
+        @if (!string.IsNullOrEmpty(result.Suggestion)) {
+            <div class="suggestion">
+                <p>Estos son los resultados de: <strong style="text-decoration: underline;">@result.Suggestion</strong></p>
+            </div>
+        }
+
+        @if(aux && result.Count==0)
+        {
+            <div>
+                <h3>No se encontraron resultados</h3>
+                <p>Puedes</p>
+                <ul>
+                    <li>Revisar si escribiste bien la entrada</li>
+                    <li>Comprobar que hayas puesto bien los operadores</li>
+                    <li>Volver a intentarlo con palabras parecidas</li>
+                </ul>
+            </div>
+        }
+
+        <div class="results">
+        @foreach (var item in result.Items()) {
+            <div>
+                <details class="item">
+                    <summary>
+                            <p class="title">@item.Title</p>
+                            <p>(...) @item.Snippet (...)</p>
+                    </summary>
+                    <p>@item.Text</p>    
+                </details>
+            </div>
+        }
+        </div>
+    </section>
+    <aside>
+        <div class="sugestion">
+            <h3 style="text-decoration: underline;">Ultimas busquedas realizadas</h3>
+        </div>
+        
+        <div class="Previous Search">
+            @foreach (var item in LastSearchs)
+            {
+                <div>
+                    <div class="item" @onclick="() => OldSearch(item)">
+                        <p class="title">@item</p>
+                    </div>
+                </div>
+            }
+        </div>
+        <button type="default" class="btn btn-primary" @onclick="Clean">Borrar Historial</button>
+        <button type="default" class="btn btn-primary" @onclick="RandomQuery">Documento Aleatorio</button>
+    </aside>
+</main>
+
+<footer>
+    <div>
+        <div>
+            <address>Facultad de Matematica y Computacion</address>
+            <address>Universidad de La Habana</address>
+        </div>
+        <div></div>
+        <div>
+            <address>La Habana, Cuba</address>
+            <small>javier.rs0808&copy;gmail.com</small>
+        </div>
+    </div>
+</footer>
+
+@code {
+    private string query = "";
+    private bool aux=false;
+    private string[] LastSearchs = Moogle.Memory();
+    private SearchResult result = new SearchResult();
+    private void RunQuery() {
+        Moogle.Actualize(query);
+        result = Moogle.Query(query);
+        LastSearchs=Moogle.Memory();
+        aux=true;
+    }
+
+    private void Clean()
+    //cleans the historial
+    {
+        StreamWriter b=new StreamWriter("Memory.txt");
+        b.Close();
+        LastSearchs=new string[0];
+    }
+
+    private void OldSearch(string a)
+    //make a new search
+    {
+        aux=true;
+        result = Moogle.Query(a);
+    }
+    private void RandomQuery()
+    //make a new search
+    {
+        aux=true;
+        result = Moogle.Query("");
+    }
+    
+}
